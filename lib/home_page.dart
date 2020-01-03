@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage> {
               leading: Icon(Icons.account_circle),
               title: Text("Profile"),
               onTap: () {
-                Navigator.pop((context));
+                Navigator.pushNamed(context, '/profile');
               },
             ),
             ListTile(

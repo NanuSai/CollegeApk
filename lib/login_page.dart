@@ -53,7 +53,7 @@ class LoginPage extends StatelessWidget {
             email: emailControler.text, password: passwordControler.text);
         Login p = await createLogin(CREATE_POST_URL, body: newLogin.toMap());
         print(p.email);
-        Navigator.pushNamed(context, '/second');
+        Navigator.pushNamed(context, '/home');
       },
       child: Text("Login",
           textAlign: TextAlign.center,

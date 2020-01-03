@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test_project/home_page.dart';
 
 import 'login_page.dart';
+import 'profile_page.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -11,10 +12,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.deepOrange,
       ),
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
-        '/': (context) => LoginPage(),
-        '/second': (context) => HomePage()
+        '/login': (context) => LoginPage(),
+        '/home': (context) => HomePage(),
+        '/profile': (context) => ProfilePage(),
       },
     );
   }

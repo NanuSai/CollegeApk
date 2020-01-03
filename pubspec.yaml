@@ -43,6 +43,7 @@ flutter:
 
   assets:
     - assets/images/logo.png
+    - assets/images/college_pic.jpeg
 
   fonts:
     - family: Montserrat
