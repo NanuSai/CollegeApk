@@ -1,16 +1,16 @@
 class Login {
-  final String email;
+  final String username;
   final String password;
 
-  Login({this.email, this.password});
+  Login({this.username, this.password});
 
   factory Login.fromJson(Map<String, dynamic> json) {
-    return Login(email: json['email'], password: json['password']);
+    return Login(username: json['username'], password: json['password']);
   }
 
   Map toMap() {
     var map = new Map<String, dynamic>();
-    map['email'] = email;
+    map['username'] = username;
     map['password'] = password;
 
     return map;

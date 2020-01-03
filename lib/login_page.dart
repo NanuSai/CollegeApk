@@ -21,26 +21,26 @@ class LoginPage extends StatelessWidget {
 
   LoginPage({Key key, this.post}) : super(key: key);
   static final CREATE_POST_URL = 'https://jsonplaceholder.typicode.com/posts';
-  final TextEditingController emailControler = new TextEditingController();
-  final TextEditingController passwordControler = new TextEditingController();
+  final TextEditingController usernameController = new TextEditingController();
+  final TextEditingController passwordController = new TextEditingController();
   final TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
   @override
   Widget build(BuildContext context) {
-    final emailField = TextField(
+    final usernameField = TextField(
       obscureText: false,
       style: style,
-      controller: emailControler,
+      controller: usernameController,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Email",
+          hintText: "username",
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
     final passwordField = TextField(
       obscureText: true,
       style: style,
-      controller: passwordControler,
+      controller: passwordController,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Password",
@@ -50,10 +50,11 @@ class LoginPage extends StatelessWidget {
     final Widget loginButton = new RaisedButton(
       onPressed: () async {
         Login newLogin = new Login(
-            email: emailControler.text, password: passwordControler.text);
+            username: usernameController.text,
+            password: passwordController.text);
         Login p = await createLogin(CREATE_POST_URL, body: newLogin.toMap());
-        print(p.email);
-        Navigator.pushNamed(context, '/home');
+        print(p.username);
+        Navigator.pushNamed(context, '/home', arguments: p);
       },
       child: Text("Login",
           textAlign: TextAlign.center,
@@ -67,7 +68,9 @@ class LoginPage extends StatelessWidget {
         ),
         body: new Container(
           margin: const EdgeInsets.only(left: 8.0, right: 8.0),
-          child: new Column(
+          child:
+
+          new ListView(
             children: <Widget>[
               SizedBox(
                 height: 155.0,
@@ -77,7 +80,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 45.0),
-              emailField,
+              usernameField,
               SizedBox(height: 25.0),
               passwordField,
               SizedBox(
@@ -89,6 +92,7 @@ class LoginPage extends StatelessWidget {
               ),
             ],
           ),
+
         ));
   }
 }

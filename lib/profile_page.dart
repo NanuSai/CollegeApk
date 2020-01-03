@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatelessWidget {
   Column _buildButtonColumn(IconData icon, Color color, String label) {
@@ -6,15 +7,9 @@ class ProfilePage extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Icon(icon, color: color),
-        Container(
-          padding: EdgeInsets.only(bottom: 8),
-          child: Text(
-            label,
-            style: TextStyle(
-                fontSize: 12, fontWeight: FontWeight.w400, color: color),
-          ),
-        )
+        FlatButton.icon(onPressed: () => launch("tel:07306473364"),
+            icon: Icon(icon, color: color, size: 30,),
+            label: Text(label)), //Adding call system (For now to all)
       ],
     );
   }
@@ -32,7 +27,7 @@ class ProfilePage extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: Text(
-                    "Indian institute of Information Technology,Sri City, Chittooor",
+                    "Indian Institue of Information Technology,Sri City",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -47,11 +42,12 @@ class ProfilePage extends StatelessWidget {
             Icons.star,
             color: Colors.red[500],
           ),
-          Text('41')
+          Text('3.7')
         ],
       ),
     );
     final Widget buttonSection = Container(
+      padding: EdgeInsets.only(top: 16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
@@ -73,7 +69,7 @@ class ProfilePage extends StatelessWidget {
     );
 
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: <Widget>[
           Image.asset(
             "assets/images/college_pic.jpeg",

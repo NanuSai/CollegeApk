@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 
+import 'Login.dart';
+
 class HomePage extends StatefulWidget {
+
+  static const routeName = '/home';
+
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+
+
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -35,6 +43,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final Login args = ModalRoute
+        .of(context)
+        .settings
+        .arguments;
+
     return Scaffold(
       appBar: AppBar(
         title: customTitle,
@@ -117,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.deepOrange
               ),
               child: Text(
-                "Main menu",
+                "\n\n" + args.username,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
