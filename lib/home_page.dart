@@ -39,14 +39,14 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: customTitle,
         backgroundColor: Colors.deepOrange,
-        leading: IconButton(
-          tooltip: "Menu",
-          icon: Icon(Icons.menu),
-          onPressed: () {
-            //Leading are the things before title
-            print("Menu");
-          },
-        ),
+//         leading: IconButton(
+//           tooltip: "Menu",
+//           icon: Icon(Icons.menu),
+//           onPressed: () {
+//             //Leading are the things before title
+//             print("Menu");
+//           },
+//         ),
         actions: <Widget>[
           IconButton(
             icon: customIcon,
