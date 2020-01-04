@@ -20,7 +20,7 @@ class LoginPage extends StatelessWidget {
   final Future<Login> post;
 
   LoginPage({Key key, this.post}) : super(key: key);
-  static final CREATE_POST_URL = 'https://jsonplaceholder.typicode.com/posts';
+  static final CREATE_POST_URL = 'http://<YOUR_IP_ADDRESS>/login'; //TODO: Here you insert your IP address from ifconfig/ipconfig
   final TextEditingController usernameController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
   final TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
@@ -53,7 +53,8 @@ class LoginPage extends StatelessWidget {
             username: usernameController.text,
             password: passwordController.text);
         Login p = await createLogin(CREATE_POST_URL, body: newLogin.toMap());
-        print(p.username);
+        print(p
+            .username); //This here will print username you input in textfield.(If server is working)
         Navigator.pushNamed(context, '/home', arguments: p);
       },
       child: Text("Login",

@@ -49,6 +49,7 @@ class _HomePageState extends State<HomePage> {
         .arguments;
 
     return Scaffold(
+
       appBar: AppBar(
         title: customTitle,
         backgroundColor: Colors.deepOrange,
@@ -110,16 +111,20 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
           BottomNavigationBarItem(
               icon: Icon(Icons.school), title: Text("College")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.language), title: Text("Language"))
+              icon: Icon(Icons.language), title: Text("Language")),
+          BottomNavigationBarItem( //TODO: Adding The fourth item , deletes all three
+              icon: Icon(Icons.account_circle), title: Text("Your Account")),
+
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
+
       ),
       drawer: Drawer(
         child: ListView(
