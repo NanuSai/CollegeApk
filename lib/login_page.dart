@@ -6,21 +6,28 @@ import 'package:http/http.dart' as http;
 import 'Login.dart';
 
 Future<Login> createLogin(String url, {Map body}) async {
-  return http.post(url, body: body).then((http.Response response) {
+  print(json.encode(body));
+  Login login;
+  http
+      .post(url,
+          headers: {"Content-Type": "application/json"},
+          body: json.encode(body))
+      .then((http.Response response) {
     final int statusCode = response.statusCode;
-
     if (statusCode < 200 || statusCode > 400 || json == null) {
       throw new Exception("Error while fetching data");
     }
-    return Login.fromJson(json.decode(response.body));
+    login= Login.fromJson(json.decode(response.body));
   });
+  return login;
 }
 
 class LoginPage extends StatelessWidget {
   final Future<Login> post;
 
   LoginPage({Key key, this.post}) : super(key: key);
-  static final CREATE_POST_URL = 'http://<YOUR_IP_ADDRESS>/login'; //TODO: Here you insert your IP address from ifconfig/ipconfig
+  final String CREATE_POST_URL =
+      'http://<ip>/login'; //TODO: Here you insert your IP address from ifconfig/ipconfig
   final TextEditingController usernameController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
   final TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
@@ -69,9 +76,7 @@ class LoginPage extends StatelessWidget {
         ),
         body: new Container(
           margin: const EdgeInsets.only(left: 8.0, right: 8.0),
-          child:
-
-          new ListView(
+          child: new ListView(
             children: <Widget>[
               SizedBox(
                 height: 155.0,
@@ -93,7 +98,6 @@ class LoginPage extends StatelessWidget {
               ),
             ],
           ),
-
         ));
   }
 }

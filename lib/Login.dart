@@ -5,7 +5,7 @@ class Login {
   Login({this.username, this.password});
 
   factory Login.fromJson(Map<String, dynamic> json) {
-    return Login(username: json['username'], password: json['password']);
+    return Login(username: json['username'] ?? "none", password: json['password']) ?? "none";
   }
 
   Map toMap() {
