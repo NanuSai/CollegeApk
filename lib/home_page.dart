@@ -3,20 +3,16 @@ import 'package:flutter/material.dart';
 import 'Login.dart';
 
 class HomePage extends StatefulWidget {
-
   static const routeName = '/home';
-
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-
-
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 0: Home',
@@ -28,6 +24,10 @@ class _HomePageState extends State<HomePage> {
     ),
     Text(
       'Index 2: School',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 3: Unknown',
       style: optionStyle,
     ),
   ];
@@ -43,24 +43,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final Login args = ModalRoute
-        .of(context)
-        .settings
-        .arguments;
+    // Pass Login object to constructor instead.
+    final Login args = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-
       appBar: AppBar(
         title: customTitle,
         backgroundColor: Colors.deepOrange,
-//         leading: IconButton(
-//           tooltip: "Menu",
-//           icon: Icon(Icons.menu),
-//           onPressed: () {
-//             //Leading are the things before title
-//             print("Menu");
-//           },
-//         ),
         actions: <Widget>[
           IconButton(
             icon: customIcon,
@@ -112,30 +101,60 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.school), title: Text("College")),
+            icon: Icon(
+              Icons.home,
+              color: Colors.black38,
+            ),
+            activeIcon: Icon(
+              Icons.home,
+              color: Colors.deepOrange,
+            ),
+            title: Text("Home"),
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.language), title: Text("Language")),
-          BottomNavigationBarItem( //TODO: Adding The fourth item , deletes all three
-              icon: Icon(Icons.account_circle), title: Text("Your Account")),
-
+              icon: Icon(
+                Icons.school,
+                color: Colors.black38,
+              ),
+              activeIcon: Icon(
+                Icons.school,
+                color: Colors.deepOrange,
+              ),
+              title: Text("College")),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.language,
+                color: Colors.black38,
+              ),
+              activeIcon: Icon(
+                Icons.language,
+                color: Colors.deepOrange,
+              ),
+              title: Text("Language")),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.account_circle,
+                color: Colors.black38,
+              ),
+              activeIcon: Icon(
+                Icons.account_circle,
+                color: Colors.deepOrange,
+              ),
+              title: Text("Your Account")),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
-
       ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              decoration: BoxDecoration(
-                  color: Colors.deepOrange
-              ),
+              decoration: BoxDecoration(color: Colors.deepOrange),
               child: Text(
-                "\n\n" + args.username,
+                "\n\n" + (args != null ? args.username : "Anonymous"),   // Check not provided if no Login object provided.
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -160,7 +179,7 @@ class _HomePageState extends State<HomePage> {
               leading: Icon(Icons.settings),
               title: Text("Settings"),
               onTap: () {
-                Navigator.pop((context));
+                // Navigator.pop((context));
               },
             ),
           ],
@@ -169,6 +188,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
-
