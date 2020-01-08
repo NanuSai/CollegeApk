@@ -13,10 +13,10 @@ Future<User> createUser(String url, Map body) async {
   return User.fromJson(json.decode(res.body));
 }
 
-class LoginPage extends StatelessWidget {
+class RegisterPage extends StatelessWidget {
   final Future<User> post;
 
-  LoginPage({Key key, this.post}) : super(key: key);
+  RegisterPage({Key key, this.post}) : super(key: key);
   final String serverUrl =
       'http://192.168.122.1:3000/User'; //TODO: Here you insert your IP address from ifconfig/ipconfig
   final TextEditingController usernameController = new TextEditingController();
@@ -72,8 +72,7 @@ class LoginPage extends StatelessWidget {
                   User newUser = User(
                       username: usernameController.text,
                       password: passwordController.text);
-                  Future<User> p = createUser(
-                      serverUrl, newUser.toMap());
+                  Future<User> p = createUser(serverUrl, newUser.toMap());
                   await p.then((value) {
                     print(value);
                     Navigator.pushNamed(context, '/home', arguments: value);

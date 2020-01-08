@@ -3,6 +3,7 @@ import 'package:test_project/home_page.dart';
 
 import 'login_page.dart';
 import 'profile_page.dart';
+import 'register_page.dart';
 
 
 class MyApp extends StatelessWidget {
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         '/User': (context) => LoginPage(),
         '/home': (context) => HomePage(),
         '/profile': (context) => ProfilePage(),
+        '/register': (context) => RegisterPage(),
       },
     );
   }
