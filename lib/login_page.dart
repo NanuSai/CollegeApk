@@ -45,11 +45,11 @@ class LoginPage extends StatelessWidget {
           border:
           OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
-    final loginRouteButton = RaisedButton(
+    final registerRouteButton = RaisedButton(
       child: Text("Already a user? Click here!"),
       onPressed: () {
         Navigator.pop(context); //TODO: Popping our context, see if it works.
-        Navigator.pushNamed(context, '/login');
+        Navigator.pushNamed(context, '/register');
       },
     );
     return Scaffold(
@@ -95,11 +95,10 @@ class LoginPage extends StatelessWidget {
                           style: style.copyWith(
                               color: Colors.white,
                               fontWeight: FontWeight.bold)),
-                    ), loginRouteButton
+                    ), registerRouteButton
                   ],
                 ),
               ),
-
               SizedBox(
                 height: 15.0,
               ),
