@@ -1,8 +1,9 @@
 class Login {
-  final String username;
-  final String password;
+  String username;
+  String password;
 
-  Login({this.username, this.password});
+  Login({this.username = "Anonymous", this.password = ""});
+
 
   factory Login.fromJson(Map<String, dynamic> json) {
     return Login(username: json['username'] ?? "none", password: json['password']) ?? "none";
@@ -14,5 +15,10 @@ class Login {
     map['password'] = password;
 
     return map;
+  }
+
+  @override
+  String toString() {
+    return this.username;
   }
 }

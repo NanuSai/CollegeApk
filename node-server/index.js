@@ -23,6 +23,7 @@ function insertDocument(username, password) {
             db.close();
 
         })
+
     })
 }
 
@@ -56,7 +57,7 @@ app.post('/login', (req, res) => {
     console.log(username);
     console.log(password);
     insertDocument(username, password);
-    res.send("Login done");
+    res.json({"username":req.body.username,"password":req.body.password});
 });
 
 
