@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'User.dart';
 
 Future<User> createUser(String url, Map body) async {
-  print("Data to send: " + json.encode(body));
+//  print("Data to send: " + json.encode(body));
   http.Response res = await http.post(url,
       headers: {"Content-Type": "application/json"}, body: json.encode(body));
   print(res.body);
@@ -15,10 +15,10 @@ Future<User> createUser(String url, Map body) async {
 
 class LoginPage extends StatelessWidget {
   final Future<User> post;
-
   LoginPage({Key key, this.post}) : super(key: key);
+
   final String serverUrl =
-      'http://192.168.122.1:3000/User'; //TODO: Here you insert your IP address from ifconfig/ipconfig
+      'http://192.168.122.1:3000/User';
   final TextEditingController usernameController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
   final TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
@@ -33,7 +33,7 @@ class LoginPage extends StatelessWidget {
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "username",
           border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
     final passwordField = TextField(
       obscureText: true,
@@ -43,11 +43,18 @@ class LoginPage extends StatelessWidget {
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Password",
           border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+    );
+    final loginRouteButton = RaisedButton(
+      child: Text("Already a user? Click here!"),
+      onPressed: () {
+        Navigator.pop(context); //TODO: Popping our context, see if it works.
+        Navigator.pushNamed(context, '/login');
+      },
     );
     return Scaffold(
         appBar: AppBar(
-          title: Text('User User'),
+          title: Text('Login User'),
         ),
         body: new Container(
           margin: const EdgeInsets.only(left: 8.0, right: 8.0),
@@ -67,23 +74,32 @@ class LoginPage extends StatelessWidget {
               SizedBox(
                 height: 35.0,
               ),
-              RaisedButton(
-                onPressed: () async {
-                  User newUser = User(
-                      username: usernameController.text,
-                      password: passwordController.text);
-                  Future<User> p = createUser(
-                      serverUrl, newUser.toMap());
-                  await p.then((value) {
-                    print(value);
-                    Navigator.pushNamed(context, '/home', arguments: value);
-                  });
-                },
-                child: Text("User",
-                    textAlign: TextAlign.center,
-                    style: style.copyWith(
-                        color: Colors.white, fontWeight: FontWeight.bold)),
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    RaisedButton(
+                      onPressed: () async {
+                        User newUser = User(
+                            username: usernameController.text,
+                            password: passwordController.text);
+                        Future<User> loginResponse = createUser(
+                            serverUrl, newUser.toMap());
+                        await loginResponse.then((value) {
+                          print(value);
+                          Navigator.pushNamed(context, '/home',
+                              arguments: value);
+                        });
+                      },
+                      child: Text("login",
+                          textAlign: TextAlign.center,
+                          style: style.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold)),
+                    ), loginRouteButton
+                  ],
+                ),
               ),
+
               SizedBox(
                 height: 15.0,
               ),
