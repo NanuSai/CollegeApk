@@ -3,22 +3,22 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'Login.dart';
+import 'User.dart';
 
-Future<Login> createLogin(String url, Map body) async {
+Future<User> createUser(String url, Map body) async {
   print("Data to send: " + json.encode(body));
   http.Response res = await http.post(url,
       headers: {"Content-Type": "application/json"}, body: json.encode(body));
   print(res.body);
-  return Login.fromJson(json.decode(res.body));
+  return User.fromJson(json.decode(res.body));
 }
 
 class LoginPage extends StatelessWidget {
-  final Future<Login> post;
+  final Future<User> post;
 
   LoginPage({Key key, this.post}) : super(key: key);
   final String CREATE_POST_URL =
-      'http://192.168.122.1:3000/login'; //TODO: Here you insert your IP address from ifconfig/ipconfig
+      'http://192.168.122.1:3000/User'; //TODO: Here you insert your IP address from ifconfig/ipconfig
   final TextEditingController usernameController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
   final TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
@@ -47,7 +47,7 @@ class LoginPage extends StatelessWidget {
     );
     return Scaffold(
         appBar: AppBar(
-          title: Text('User Login'),
+          title: Text('User User'),
         ),
         body: new Container(
           margin: const EdgeInsets.only(left: 8.0, right: 8.0),
@@ -69,17 +69,17 @@ class LoginPage extends StatelessWidget {
               ),
               RaisedButton(
                 onPressed: () async {
-                  Login newLogin = Login(
+                  User newUser = User(
                       username: usernameController.text,
                       password: passwordController.text);
-                  Future<Login> p = createLogin(
-                      CREATE_POST_URL, newLogin.toMap());
+                  Future<User> p = createUser(
+                      CREATE_POST_URL, newUser.toMap());
                   await p.then((value) {
                     print(value);
                     Navigator.pushNamed(context, '/home', arguments: value);
                   });
                 },
-                child: Text("Login",
+                child: Text("User",
                     textAlign: TextAlign.center,
                     style: style.copyWith(
                         color: Colors.white, fontWeight: FontWeight.bold)),

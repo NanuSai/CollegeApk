@@ -17,7 +17,7 @@ function insertDocument(username, password) {
         console.log("Connected to database! ");
         var dbo = db.db("Users");
         var myobj = { username: username, password: password };
-        dbo.collection("login_info").insertOne(myobj, (err, res) => {
+        dbo.collection("User_info").insertOne(myobj, (err, res) => {
             if (err) throw err;
             console.log("One document inserted!");
             db.close();
@@ -34,7 +34,7 @@ function isDocument(username, password) {
         if (err) throw err;
         console.log("Connected to database!");
         var dbo = db.db("Users");
-        dbo.collection("login_info").findOne({}, { projection: { username: username, password: password } }, (err, res) => {
+        dbo.collection("User_info").findOne({}, { projection: { username: username, password: password } }, (err, res) => {
             if (err) throw err;
             console.log("Document found!");
             return true;
@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
 
 });
 
-app.post('/login', (req, res) => {
+app.post('/User', (req, res) => {
     console.log(req.body)
     var username = req.body.username;
     var password = req.body.password;

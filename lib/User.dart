@@ -1,12 +1,14 @@
-class Login {
+class User {
   String username;
   String password;
 
-  Login({this.username = "Anonymous", this.password = ""});
+  User({this.username = "Anonymous", this.password = ""});
 
 
-  factory Login.fromJson(Map<String, dynamic> json) {
-    return Login(username: json['username'] ?? "none", password: json['password']) ?? "none";
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+        username: json['username'] ?? "none", password: json['password']) ??
+        "none";
   }
 
   Map toMap() {

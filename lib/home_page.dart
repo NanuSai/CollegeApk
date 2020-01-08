@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'Login.dart';
+import 'User.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
@@ -43,8 +43,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // Pass Login object to constructor instead.
-    final Login args = ModalRoute.of(context).settings.arguments;
+    // Pass User object to constructor instead.
+    final User args = ModalRoute
+        .of(context)
+        .settings
+        .arguments;
 
     return Scaffold(
       appBar: AppBar(
@@ -91,7 +94,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             _widgetOptions[_selectedIndex],
             RaisedButton(
-              child: Text("Back to login page"),
+              child: Text("Back to User page"),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -154,7 +157,8 @@ class _HomePageState extends State<HomePage> {
             DrawerHeader(
               decoration: BoxDecoration(color: Colors.deepOrange),
               child: Text(
-                "\n\n" + (args != null ? args.username : "Anonymous"),   // Check not provided if no Login object provided.
+                "\n\n" + (args != null ? args.username : "Anonymous"),
+                // Check not provided if no User object provided.
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,

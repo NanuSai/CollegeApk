@@ -4,6 +4,7 @@ import 'package:test_project/home_page.dart';
 import 'login_page.dart';
 import 'profile_page.dart';
 
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -12,9 +13,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.deepOrange,
       ),
-      initialRoute: '/login',
+      initialRoute: '/User',
       routes: {
-        '/login': (context) => LoginPage(),
+        '/User': (context) => LoginPage(),
         '/home': (context) => HomePage(),
         '/profile': (context) => ProfilePage(),
       },
