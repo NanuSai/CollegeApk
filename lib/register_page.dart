@@ -18,7 +18,7 @@ class RegisterPage extends StatelessWidget {
   RegisterPage({Key key, this.post}) : super(key: key);
 
   final String serverUrl =
-      'http://192.168.122.1:3000/User';
+      'http://192.168.122.1:3000/register';
   final TextEditingController usernameController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
   final TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
@@ -48,7 +48,7 @@ class RegisterPage extends StatelessWidget {
     final loginRouteButton = RaisedButton(
       child: Text("Already a user? Click here!"),
       onPressed: () {
-        Navigator.pop(context); //TODO: Popping our context, see if it works.
+        Navigator.pop(context);
         Navigator.pushNamed(context, '/login');
       },
     );
@@ -76,6 +76,7 @@ class RegisterPage extends StatelessWidget {
               ),
               Container(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     RaisedButton(
                       onPressed: () async {

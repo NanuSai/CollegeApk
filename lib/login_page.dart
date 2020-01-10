@@ -5,12 +5,12 @@ import 'package:http/http.dart' as http;
 
 import 'User.dart';
 
-Future<User> createUser(String url, Map body) async {
+Future<bool> checkUser(String url, Map body) async {
 //  print("Data to send: " + json.encode(body));
   http.Response res = await http.post(url,
       headers: {"Content-Type": "application/json"}, body: json.encode(body));
-  print(res.body);
-  return User.fromJson(json.decode(res.body));
+  print("Response from server" + res.body);
+  return res.body == "true" ? true : false;
 }
 
 class LoginPage extends StatelessWidget {
@@ -18,7 +18,7 @@ class LoginPage extends StatelessWidget {
   LoginPage({Key key, this.post}) : super(key: key);
 
   final String serverUrl =
-      'http://192.168.122.1:3000/User';
+      'http://192.168.122.1:3000/login';
   final TextEditingController usernameController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
   final TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
@@ -46,7 +46,7 @@ class LoginPage extends StatelessWidget {
           OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
     final registerRouteButton = RaisedButton(
-      child: Text("Already a user? Click here!"),
+      child: Text("Not registered? Register"),
       onPressed: () {
         Navigator.pop(context); //TODO: Popping our context, see if it works.
         Navigator.pushNamed(context, '/register');
@@ -76,18 +76,20 @@ class LoginPage extends StatelessWidget {
               ),
               Container(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     RaisedButton(
                       onPressed: () async {
                         User newUser = User(
                             username: usernameController.text,
                             password: passwordController.text);
-                        Future<User> loginResponse = createUser(
+                        Future<bool> loginResponse = checkUser(
                             serverUrl, newUser.toMap());
-                        await loginResponse.then((value) {
-                          print(value);
-                          Navigator.pushNamed(context, '/home',
-                              arguments: value);
+                        await loginResponse.then((isUser) {
+                          print(isUser);
+                          if (isUser)
+                            Navigator.pushNamed(context, '/home',
+                                arguments: usernameController.text);
                         });
                       },
                       child: Text("login",

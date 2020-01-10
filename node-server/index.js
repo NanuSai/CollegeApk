@@ -9,60 +9,110 @@ const { parse } = require('querystring');
 
 app.use(bodyParser.json());
 
-function insertDocument(username, password) {
 
-    MongoClient.connect(SERVER_URL, (err, db) => {
+MongoClient.connect(SERVER_URL, (err, db) => {
 
-        if (err) throw err;
-        console.log("Connected to database! ");
-        var dbo = db.db("Users");
-        var myobj = { username: username, password: password };
-        dbo.collection("User_info").insertOne(myobj, (err, res) => {
+if (err) throw err;
+    console.log("Connected to database! ");
+
+    var dbo = db.db("Users");
+
+    function insertDocument(username,password){
+        
+        var myobj = {"username":username,"password":password};
+
+        dbo.collection("login_info").insertOne(myobj, (err, res) => {
             if (err) throw err;
-            console.log("One document inserted!");
-            db.close();
-
+            console.log("One document inserted!");        
         })
+    }
 
-    })
-}
+    function isDocument(username,password,result){
 
-function isDocument(username, password) {
-
-    MongoClient.connect(SERVER_URL, (err, db) => {
-
-        if (err) throw err;
-        console.log("Connected to database!");
-        var dbo = db.db("Users");
-        dbo.collection("User_info").findOne({}, { projection: { username: username, password: password } }, (err, res) => {
+        console.log(username);
+        console.log(password);
+        
+        
+        dbo.collection("login_info").findOne({ projection: { "username": username, "password": password } }, (err, res) => {
             if (err) throw err;
-            console.log("Document found!");
-            return true;
+
+            console.log(res);
+            result(false);  
+
+            if(res != null)
+                result(true);
+
+        })  
+
         }
-        )
+
+
+    app.get('/', (req, res) => {
+        res.send("Welcome to the Oasis! Hosted by Nanubala Gnana Sai");
+
+    });
+
+
+
+
+    app.listen(PORT);
+    console.log(`Listening on http://localhost:${PORT}`);
+
+
+    app.post('/login', (req, res) => {
+        var username = req.body.username;
+        var password = req.body.password;
+        isDocument(username,password,function(match){
+            if(match == true){
+                console.log("Welcome user! " + username);
+                res.send(match);
+            }
+            else{
+                console.log("You're not registered!");
+                res.send(null);
+            }
+                
+
+            
+        })
+    });
+
+    app.post('/register', (req, res) => {
+        console.log(req.body)
+        var username = req.body.username;
+        var password = req.body.password;
+    
+         
+        isDocument(username,password,function(result){
+
+        console.log(result);
+        if(!result){
+        console.log("Registering!");
+        insertDocument(req.body.username, req.body.password);
+        res.json({"username":username,"password":password});
+        }
+        else{
+            res.send({"WRONG":"WRONG"});
+        }
     })
-}
-
-
-
-app.get('/', (req, res) => {
-    res.send("Welcome to the Oasis! Hosted by Nanubala Gnana Sai");
-
-});
-
-app.post('/User', (req, res) => {
-    console.log(req.body)
-    var username = req.body.username;
-    var password = req.body.password;
-    console.log(username);
-    console.log(password);
-    insertDocument(username, password);
-    res.json({"username":req.body.username,"password":req.body.password});
-});
+    
+    
+       
+    });
+    
+    
+})
 
 
 
 
 
-app.listen(PORT);
-console.log(`Listening on http://localhost:${PORT}`);
+        
+       
+
+  
+
+
+
+
+

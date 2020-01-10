@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'User.dart';
 
 class HomePage extends StatefulWidget {
@@ -94,9 +93,10 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             _widgetOptions[_selectedIndex],
             RaisedButton(
-              child: Text("Back to User page"),
+              child: Text("Back to Login page"),
               onPressed: () {
                 Navigator.pop(context);
+                Navigator.pushNamed(context, '/login');
               },
             )
           ],
