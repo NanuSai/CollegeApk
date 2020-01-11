@@ -19,7 +19,7 @@ if (err) throw err;
 
     function insertDocument(username,password){
         
-        var myobj = {"username":username,"password":password};
+        var myobj = {username:username,password:password};
 
         dbo.collection("login_info").insertOne(myobj, (err, res) => {
             if (err) throw err;
@@ -33,7 +33,7 @@ if (err) throw err;
         console.log(password);
         
         
-        dbo.collection("login_info").findOne({ projection: { "username": username, "password": password } }, (err, res) => {
+        dbo.collection("login_info").findOne({ projection: { username: username, password: password } }, (err, res) => {
             if (err) throw err;
 
             console.log(res);
@@ -44,7 +44,7 @@ if (err) throw err;
 
         })  
 
-        }
+    }
 
 
     app.get('/', (req, res) => {
