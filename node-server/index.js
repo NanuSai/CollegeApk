@@ -29,18 +29,23 @@ if (err) throw err;
 
     function isDocument(username,password,result){
 
-        console.log(username);
-        console.log(password);
         
+        var query = {username: username,password : password};
         
-        dbo.collection("login_info").findOne({ projection: { username: username, password: password } }, (err, res) => {
+        dbo.collection("login_info").findOne(query, (err, res) => {
             if (err) throw err;
 
-            console.log(res);
-            result(false);  
+            console.log("We found \n "+ res);
+              
 
-            if(res != null)
+            if(res != null){
+                console.log("There's a match!");
                 result(true);
+            }
+            else{
+                console.log("No such document found");
+                result(false);
+            }
 
         })  
 
@@ -78,7 +83,7 @@ if (err) throw err;
     });
 
     app.post('/register', (req, res) => {
-        console.log(req.body)
+        console.log("Request body \n" + req.body);
         var username = req.body.username;
         var password = req.body.password;
     
