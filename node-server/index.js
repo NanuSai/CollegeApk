@@ -29,23 +29,25 @@ if (err) throw err;
 
     function isDocument(username,password,result){
 
-        
-        var query = {username: username,password : password};
+        console.log(username);
+        console.log(password);
+        var query = {username: username,password:password};
         
         dbo.collection("login_info").findOne(query, (err, res) => {
             if (err) throw err;
-
-            console.log("We found \n "+ res);
-              
-
+            
+            console.log("We found: " + res);
+            
+            
             if(res != null){
-                console.log("There's a match!");
                 result(true);
+                console.log("Document found!");
             }
             else{
-                console.log("No such document found");
                 result(false);
+                console.log("Couldn't find!");
             }
+                
 
         })  
 
@@ -70,12 +72,12 @@ if (err) throw err;
         isDocument(username,password,function(match){
             if(match == true){
                 console.log("Welcome user! " + username);
-                res.send(match);
+                res.status(200).send("ok");
             }
             else{
-                console.log("You're not registered!");
-                res.send(null);
+                res.status(404).send("Not found!");                
             }
+            
                 
 
             
@@ -83,7 +85,7 @@ if (err) throw err;
     });
 
     app.post('/register', (req, res) => {
-        console.log("Request body \n" + req.body);
+        console.log(req.body)
         var username = req.body.username;
         var password = req.body.password;
     
