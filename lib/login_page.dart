@@ -83,14 +83,12 @@ class LoginPage extends StatelessWidget {
                         User newUser = User(
                             username: usernameController.text,
                             password: passwordController.text);
-                        Future<bool> loginResponse = checkUser(
+                        bool loginSuccess = await checkUser(
                             serverUrl, newUser.toMap());
-                        await loginResponse.then((isUser) {
-                          print(isUser);
-                          if (isUser)
-                            Navigator.pushNamed(context, '/home',
-                                arguments: usernameController.text);
-                        });
+                        if (loginSuccess) {
+                          Navigator.pushNamed(
+                              context, '/home', arguments: newUser);
+                        }
                       },
                       child: Text("login",
                           textAlign: TextAlign.center,
