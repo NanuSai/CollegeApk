@@ -18,7 +18,7 @@ class RegisterPage extends StatelessWidget {
   RegisterPage({Key key, this.post}) : super(key: key);
 
   final String serverUrl =
-      'http://192.168.122.1:3000/register';
+      'http://192.168.122.1:3000/users/register';
   final TextEditingController usernameController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
   final TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
@@ -43,6 +43,7 @@ class RegisterPage extends StatelessWidget {
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Password",
           border:
+
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
     final loginRouteButton = RaisedButton(
@@ -83,13 +84,21 @@ class RegisterPage extends StatelessWidget {
                         User newUser = User(
                             username: usernameController.text,
                             password: passwordController.text);
-                        Future<User> registerResponse = createUser(
-                            serverUrl, newUser.toMap());
-                        await registerResponse.then((value) {
-                          print(value);
-                          Navigator.pushNamed(context, '/home',
-                              arguments: value);
-                        });
+                        try {
+                          User registerResponse = await createUser(
+                              serverUrl, newUser.toMap());
+//                          print("This is the response: " +
+//                              registerResponse.password);
+                          Navigator.pushNamed(
+                              context, '/home', arguments: registerResponse);
+                        }
+                        catch (err) {
+                          print(err.toString());
+                        }
+
+
+
+
                       },
                       child: Text("Register",
                           textAlign: TextAlign.center,

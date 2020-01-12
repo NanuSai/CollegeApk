@@ -9,7 +9,7 @@ Future<bool> checkUser(String url, Map body) async {
 //  print("Data to send: " + json.encode(body));
   http.Response res = await http.post(url,
       headers: {"Content-Type": "application/json"}, body: json.encode(body));
-  print("Response from server" + res.body);
+  print("Response from server: " + res.body);
   return res.body == "true" ? true : false;
 }
 
@@ -18,7 +18,7 @@ class LoginPage extends StatelessWidget {
   LoginPage({Key key, this.post}) : super(key: key);
 
   final String serverUrl =
-      'http://192.168.122.1:3000/login';
+      'http://192.168.122.1:3000/users/login';
   final TextEditingController usernameController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
   final TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
@@ -48,7 +48,7 @@ class LoginPage extends StatelessWidget {
     final registerRouteButton = RaisedButton(
       child: Text("Not registered? Register"),
       onPressed: () {
-        Navigator.pop(context); //TODO: Popping our context, see if it works.
+        Navigator.pop(context);
         Navigator.pushNamed(context, '/register');
       },
     );

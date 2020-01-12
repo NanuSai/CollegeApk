@@ -91,9 +91,9 @@ MongoClient.connect(SERVER_URL, (err, db) => {
         isDocument(username, password, function (match) {
             if (match) {
                 console.log("Welcome user! " + username);
-                res.status(200).send("ok");
+                res.status(200).send(true); // To receive in app
             } else {
-                res.status(404).send("Not found in database!");
+                res.status(404).send(false);
             }
         })
 
